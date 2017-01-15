@@ -6,7 +6,6 @@
  * Time: 13:35
  */
 session_start();
-print_r($_POST);
 function encrypt ($pw) {
     $hash = hash('sha256', $pw);
     $pw_en=$hash;
@@ -25,5 +24,5 @@ if (! $db_erg) {
   //  die ( 'Ungültige Abfrage: ' . mysqli_error () );
 }
 else {
-    header("Location: /index.php");
+    header("Location: /chat/");
 }

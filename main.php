@@ -8,8 +8,8 @@
 session_start();
 
 if ($_SESSION['chat_sessionid']) {
-    //echo "logged in ";
- //   $sesion=$_SESSION['chat_sessionid'];
+   echo "logged in ";
+  $sesion=$_SESSION['chat_sessionid'];
 }
 else {
     print_r($_SESSION);
