@@ -5,6 +5,11 @@
  * Date: 13.01.17
  * Time: 20:25
  */
+session_start();
+$logout=$_GET['logout'];
+if ($logout==true){
+    session_destroy();
+}
 ?>
 <html lang="de">
 <head>
@@ -26,8 +31,15 @@
         <!-- Platz für CSS für jquery UI -->
     </style>
     <script>
+        <!-- Captcha -->
         function onSubmit (token) {
             document.getElementById("a").submit();
+        }
+        function onSubmitb (token) {
+            document.getElementById("b").submit();
+        }
+        function onSubmitc (token) {
+            document.getElementById("c").submit();
         }
         <!-- Platz für js für jquery UI -->
     </script>
@@ -73,7 +85,7 @@
                     <div class="mdl-layout-spacer"></div>
 
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="pw" name="pw">
+                            <input class="mdl-textfield__input" type="password" id="pw" name="pw">
                             <label class="mdl-textfield__label" for="pw">Passwort...</label>
                         </div>
                               <div class="mdl-layout-spacer"></div>
