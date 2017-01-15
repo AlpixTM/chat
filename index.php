@@ -9,6 +9,7 @@ session_start();
 $logout=$_GET['logout'];
 if ($logout==true){
     session_destroy();
+    header("Location: /");
 }
 ?>
 <html lang="de">
@@ -26,12 +27,19 @@ if ($logout==true){
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script  src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
     <style>
 
         <!-- Platz für CSS für jquery UI -->
     </style>
     <script>
         <!-- Captcha -->
+
+         function CaptchaCallback(){
+            $('.g-recaptcha').each(function(index, el) {
+                grecaptcha.render(el, {'sitekey' : '6LdO4REUAAAAAJ5tUklyThfRMmEN8MvCA8UlDsnQ'});
+            });
+        };
         function onSubmit (token) {
             document.getElementById("a").submit();
         }
@@ -41,11 +49,12 @@ if ($logout==true){
         function onSubmitc (token) {
             document.getElementById("c").submit();
         }
+
         <!-- Platz für js für jquery UI -->
     </script>
 
 </head>
-<body class="mdl-base">
+<body class="mdl-base" onLoad="CaptchaCallback()">
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
     <!-- Header -->
     <header class="mdl-layout__header">
@@ -93,7 +102,7 @@ if ($logout==true){
                               <div class="mdl-layout-spacer"></div>
                               <div class="mdl-grid">
                                   <div class="mdl-layout-spacer"></div>
-                  <button class="g-recaptcha mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-sitekey="6LdO4REUAAAAAJ5tUklyThfRMmEN8MvCA8UlDsnQ"
+                <button class="g-recaptcha mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-sitekey="6LdO4REUAAAAAJ5tUklyThfRMmEN8MvCA8UlDsnQ"
                           data-callback='onSubmit' >
                                   Login
                               </button>
@@ -114,18 +123,54 @@ if ($logout==true){
         <section class="mdl-layout__tab-panel" id="fixed-tab-2">
             <div class="page-content">
                 <!-- Registrierung -->
+                <h3 style="text-align: center" >Registrieren</h3>
                 <div class="mdl-grid">
-                    <div class="mdl-layout-spacer"></div>
-                    <div >
-
-                    </div>
-
 
                     <div class="mdl-layout-spacer"></div>
+
+                    <form id="b" action="register.php" method="post">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="Name" name="Name">
+                            <label class="mdl-textfield__label" for="Name">Name...</label>
+                        </div>
+
+                        <div class="mdl-layout-spacer"></div>
+
+
+                        <div class="mdl-layout-spacer"></div>
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="password" id="pw" name="pw">
+                            <label class="mdl-textfield__label" for="pw">Passwort...</label>
+                        </div>
+                        <div class="mdl-layout-spacer"></div>
+
+                        <div class="mdl-layout-spacer"></div>
+
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="mail" name="mail">
+                            <label class="mdl-textfield__label" for="mail">E-Mail...</label>
+                        </div>
+                        <div class="mdl-layout-spacer"></div>
+
+                        <div class="mdl-layout-spacer"></div>
+
+                        <div class="mdl-grid">
+                            <div class="mdl-layout-spacer"></div>
+                            <button class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-sitekey="6LdO4REUAAAAAJ5tUklyThfRMmEN8MvCA8UlDsnQ"
+                                    type="submit" >
+                                Registrieren
+                            </button>
+                            <div class="mdl-layout-spacer"></div>
+                        </div>
+                    </form>
+
+                    <div class="mdl-layout-spacer"></div>
+
+
+
 
                 </div>
-
-            </div>
             </div>
         </section>
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">

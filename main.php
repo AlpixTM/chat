@@ -6,6 +6,7 @@
  * Time: 12:49
  */
 session_start();
+
 if ($_SESSION['chat_sessionid']) {
     //echo "logged in ";
  //   $sesion=$_SESSION['chat_sessionid'];
