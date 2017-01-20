@@ -176,14 +176,47 @@ if ($logout==true){
         <section class="mdl-layout__tab-panel" id="fixed-tab-3">
             <div class="page-content">
                 <!-- Fehler melden -->
+
+                <h3 style="text-align: center" >Kontakt</h3>
                 <div class="mdl-grid">
-                    <div class="mdl-layout-spacer"></div>
-                    <div >
-
-                    </div>
-
 
                     <div class="mdl-layout-spacer"></div>
+
+                    <form id="c" action="contact.php" method="post">
+                        <!-- Floating Multiline Textfield -->
+                            <div class="mdl-textfield mdl-js-textfield" style="width: 452px">
+                                <textarea class="mdl-textfield__input" type="text" rows= "3" id="contact" name="contact" ></textarea>
+                                <label class="mdl-textfield__label" for="contact" name="contact">Dein Anliegen.</label>
+
+
+                            </div>
+
+
+
+                        <div class="mdl-layout-spacer"></div>
+                        <div class="mdl-layout-spacer"></div>
+                        <span class="mdl-chip mdl-chip">
+                             <span class="mdl-chip__text">  Bitte teile dein Anliegen mit.Vergiss nicht, einen Kontaktweg anzugeben.</span>
+                             <button type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
+                        </span>
+
+                        <div class="mdl-layout-spacer"></div>
+
+                        <div class="mdl-layout-spacer"></div>
+
+                        <div class="mdl-grid">
+                            <div class="mdl-layout-spacer"></div>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                Absenden
+                            </button>
+                            <div class="mdl-layout-spacer"></div>
+                        </div>
+                    </form>
+
+                    <div class="mdl-layout-spacer"></div>
+
+
+
 
                 </div>
 
