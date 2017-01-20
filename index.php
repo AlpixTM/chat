@@ -30,9 +30,40 @@ if ($logout==true){
     <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
     <style>
 
+        /* Preloader  - Quelle unbekannt */
+
+        #preloader {
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background-color:#fff; /* change if the mask should have another color then white */
+            z-index:99; /* makes sure it stays on top */
+        }
+
+        #status {
+            width:200px;
+            height:200px;
+            position:absolute;
+            left:50%; /* centers the loading animation horizontally one the screen */
+            top:50%; /* centers the loading animation vertically one the screen */
+            background-repeat:no-repeat;
+            background-position:center;
+            margin:-100px 0 0 -100px; /* is width and height divided by two */
+        }
         <!-- Platz für CSS für jquery UI -->
     </style>
     <script>
+        <!-- JS Preload - Quelle unbekannt -->
+        //<![CDATA[
+        $(window).load(function() { // makes sure the whole site is loaded
+            $('#status').fadeOut(); // will first fade out the loading animation
+            $('#preloader').delay(3).fadeOut('slow'); // will fade out the white DIV that covers the website.
+            $('body').delay(3).css({'overflow':'visible'});
+        })
+        //]]>
+        
         <!-- Captcha -->
 
          function CaptchaCallback(){
@@ -43,18 +74,15 @@ if ($logout==true){
         function onSubmit (token) {
             document.getElementById("a").submit();
         }
-        function onSubmitb (token) {
-            document.getElementById("b").submit();
-        }
-        function onSubmitc (token) {
-            document.getElementById("c").submit();
-        }
 
         <!-- Platz für js für jquery UI -->
     </script>
 
 </head>
 <body class="mdl-base" onLoad="CaptchaCallback()">
+<div id="preloader">
+    <div id="status">    <iframe src="loader.html" seamless sandbox="allow-scripts"></iframe> </div>
+</div>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
     <!-- Header -->
     <header class="mdl-layout__header">
