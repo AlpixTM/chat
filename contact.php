@@ -15,7 +15,7 @@ $text=$text.$z."IP:".$ip;
                    }
 echo $text;
 $betreff = "Neuer Eintrag im Formular";
-$from = "Von: Formular-Robot <sendmail@alpixmc.de>";
+$from = "Von: Formular-Robot <sendmail@alpix.eu>";
 mail($empfaenger, $betreff, $text, $from);
 header('Location: /');
 ?>
