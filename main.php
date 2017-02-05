@@ -16,7 +16,7 @@ else {
     header("Location: https://chat.alpix.eu/");
     die("Bitte neu einloggen");
 }
-function show_badge_num ($num
+function show_badge_num ($num){
 	$num = 4;
 	echo $num;
 }
@@ -86,13 +86,12 @@ function show_badge_num ($num
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-           <!-- <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Raum 1</a> -->
-		<!--	<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="  <?php show_badge_num(1); ?>">Raum 1 </span></a>
+			<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="  <?php show_badge_num(1); ?>">Raum 1 </span></a>
             <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" data-badge=" <?php show_badge_num(2); ?>">Raum 2 </span></a>
-            <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="  <?php show_badge_num(3); ?>">Raum 3 </span></a> -->
-			<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="3">Raum 1 </span></a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="  <?php show_badge_num(3); ?>">Raum 3 </span></a>
+<!--			<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="3">Raum 1 </span></a>
             <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" data-badge="2">Raum 2 </span></a>
-            <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="7">Raum 3 </span></a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="7">Raum 3 </span></a> -->
         </div>
     </header>
     <main class="mdl-layout__content">
