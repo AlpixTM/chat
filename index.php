@@ -56,6 +56,7 @@ if ($logout==true){
     </style>
     <script>
         <!-- JS Preload - Quelle unbekannt -->
+		
         //<![CDATA[
         $(window).load(function() { // makes sure the whole site is loaded
             $('#status').fadeOut(); // will first fade out the loading animation
@@ -194,9 +195,6 @@ if ($logout==true){
                     </form>
 
                     <div class="mdl-layout-spacer"></div>
-
-
-
 
                 </div>
             </div>
