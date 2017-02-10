@@ -12,6 +12,11 @@ function encrypt ($pw) {
     $pw_en=$hash;
     return $pw_en;
 }
+function update_status ($name){
+    global $link;
+    $sql="UPDATE `user` SET `status` = '1' WHERE `Name`='$name'";
+    mysqli_query($link,$sql);
+}
 $name=$_POST['Name'];
 $sql="SELECT `salt` FROM `user` WHERE `Name` = '$name'";
 $db_erg = mysqli_query ( $link, $sql );
@@ -27,9 +32,10 @@ $pw=encrypt($pw);
 $sql="SELECT `status` FROM `user` WHERE `Name` = '$name' AND `pw` = '$pw'";
 $db_erg = mysqli_query ( $link, $sql );
 while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_NUM  )) {
-    if ($zeile["0"]==0){
+    if ($zeile["0"]==0 or 1 == $zeile["0"]){
         $_SESSION['chat_sessionid']="$name";
-         header("Location: main.php");
+        update_status($name);
+        header("Location: main.php");
     }
 }
 //header("Location: /");
