@@ -27,7 +27,6 @@ if ($logout==true){
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script  src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
     <style>
 
         /* Preloader  - Quelle unbekannt */
@@ -80,7 +79,7 @@ if ($logout==true){
     </script>
 
 </head>
-<body class="mdl-base" onLoad="CaptchaCallback()">
+<body class="mdl-base" >
 <div id="preloader">
     <div id="status">    <iframe src="loader.html" seamless sandbox="allow-scripts"></iframe> </div>
 </div>
