@@ -31,11 +31,10 @@ while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_NUM  )) {
         $_SESSION['chat_sessionid']="$name";
          header("Location: main.php");
     }
-
 }
-//header("Location: /chat/");
+//header("Location: /");
 
 if (! $db_erg) {
-    header("Location: /chat/");
+    header("Location: /");
 }
 
