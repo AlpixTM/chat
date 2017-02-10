@@ -86,13 +86,14 @@ function show_badge_num ($num){
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-		<!--	<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="  <?php show_badge_num(1); ?>">Raum 1 </span></a>
+			<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="  <?php show_badge_num(1); ?>">Raum 1 </span></a>
             <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" data-badge=" <?php show_badge_num(2); ?>">Raum 2 </span></a>
-            <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="  <?php show_badge_num(3); ?>">Raum 3 </span></a> -->
-		<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="3">Raum 1 </span></a>
+            <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="  <?php show_badge_num(3); ?>">Raum 3 </span></a>
+
+            <!-- <a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="3">Raum 1 </span></a>
             <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" data-badge="2">Raum 2 </span></a>
             <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="7">Raum 3 </span></a> 
-        </div>
+        </div> -->
     </header>
     <main class="mdl-layout__content">
 <!-- Haupcontent -->
@@ -125,27 +126,6 @@ function show_badge_num ($num){
 <li style="text-align: center;"> Nutzer online in diesem Raum</li>
   <li class="mdl-list__item mdl-list__item--two-line">
     <span class="mdl-list__item-primary-content">
-      <i class="material-icons mdl-list__item-avatar">person</i>
-      <span>Admin</span>
-      <span class="mdl-list__item-sub-title">online</span>
-    </span>
-    <span class="mdl-list__item-secondary-content">
-      <span class="mdl-list__item-secondary-info">Info</span>
-      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">info</i></a>
-    </span>
-  </li>
-  <li class="mdl-list__item mdl-list__item--two-line">
-    <span class="mdl-list__item-primary-content">
-      <i class="material-icons mdl-list__item-avatar">person</i>
-      <span>maximilian</span>
-      <span class="mdl-list__item-sub-title">offline</span>
-    </span>
-    <span class="mdl-list__item-secondary-content">
-      <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">info</i></a>
-    </span>
-  </li>
-  <li class="mdl-list__item mdl-list__item--two-line">
-    <span class="mdl-list__item-primary-content">
       <i class="material-icons mdl-list__item-avatar"><img style="height: 40px; width: 40px; box-sizing: border-box; border-radius: 50%; background-color: rgb(117, 117, 117); font-size: 40px; color: rgb(255, 255, 255);" src="https://www.xing.com/image/b_3_2_6cf9a06b9_10799605_4/matthias-person-foto.256x256.jpg"></i>
       <span>User 3</span>
       <span class="mdl-list__item-sub-title">online</span>
@@ -154,32 +134,30 @@ function show_badge_num ($num){
       <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">info</i></a>
     </span>
   </li>
-  <!--
-  <?php 
-  $sql="SELECT `ID`,`Name` FROM `user` WHERE `status` = '1'";
-$db_erg = mysqli_query ( $link, $sql );
-if (! $db_erg) {
+    <?php
+    $sql="SELECT `ID`,`Name` FROM `user` WHERE `status` = '1'";
+    $db_erg = mysqli_query ( $link, $sql );
+    if (! $db_erg) {
         die ( 'Ungültige Abfrage: ' . mysqli_error () );
     }
-while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_ASSOC  )) {
-echo "
-
-  <li class='mdl-list__item mdl-list__item--two-line'>
-    <span class='mdl-list__item-primary-content'>
-      <i class='material-icons mdl-list__item-avatar'>person</i>
-      <span>$zeile["Name"]</span>
-      <span class='mdl-list__item-sub-title'>online</span>
-    </span>
-    <span class='mdl-list__item-secondary-content'>
-      <a class='mdl-list__item-secondary-action' href='#'><i class='material-icons'>info</i></a>
-    </span>
-  </li>
-
+    while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_ASSOC  )) {
+      $name=$zeile['Name'];
+      echo "
+    <li class='mdl-list__item mdl-list__item--two-line'>
+        <span class='mdl-list__item-primary-content'>
+           <i class='material-icons mdl-list__item-avatar'>person</i>
+           <span>$name</span>
+           <span class='mdl-list__item-sub-title'>online</span>
+        </span>
+        <span class='mdl-list__item-secondary-content'>
+          <a class='mdl-list__item-secondary-action' href='#'><i class='material-icons'>info</i></a>
+        </span>
+    </li>
 ";
 }
 mysqli_free_result ( $db_erg );
   ?>
-  -->
+
 </ul>
 			   </div>
             </div>
