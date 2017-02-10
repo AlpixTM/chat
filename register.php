@@ -24,5 +24,6 @@ if (! $db_erg) {
   //  die ( 'Ungültige Abfrage: ' . mysqli_error () );
 }
 else {
-    header("Location: /chat/");
+    header("Location: /");
 }
+?>
