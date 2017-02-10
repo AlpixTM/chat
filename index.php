@@ -65,12 +65,6 @@ if ($logout==true){
         //]]>
         
         <!-- Captcha -->
-
-         function CaptchaCallback(){
-            $('.g-recaptcha').each(function(index, el) {
-                grecaptcha.render(el, {'sitekey' : '6LdO4REUAAAAAJ5tUklyThfRMmEN8MvCA8UlDsnQ'});
-            });
-        };
         function onSubmit (token) {
             document.getElementById("a").submit();
         }
