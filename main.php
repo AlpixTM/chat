@@ -17,7 +17,7 @@ else {
     die("Bitte neu einloggen");
 }
 function show_badge_num ($num){
-	$num = 4;
+	$num =rand(3,9);
 	echo $num;
 }
 ?>
@@ -104,7 +104,7 @@ function show_badge_num ($num){
 
 
        <div class="mdl-layout-spacer"></div>
-	 <iframe style="margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;"  src="loader.html"></iframe>
+	 <iframe style="margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;"  src="loader.html" seamless></iframe>
 	         <div class="mdl-layout-spacer"></div>
 		
 </div>
