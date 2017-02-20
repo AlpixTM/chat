@@ -15,10 +15,13 @@ include_once 'dbconnect.php';
 $salt = uniqid().uniqid().uniqid().uniqid().uniqid();
 $name=$_POST['Name'];
 $mail=$_POST['mail'];
+$pw1=$_POST['pw'];
 $pw=$_POST['pw'].$salt;
 $pw=encrypt($pw);
-$sql = "INSERT INTO `user` (`ID`, `Name`, `pw`, `mail`, `salt`, `status`) VALUES (NULL, '$name', '$pw', '$mail', '$salt', '0');";
-$db_erg = mysqli_query ( $link, $sql );
+if ($name != "" && $mail != "" && $pw1 != "") {
+    $sql = "INSERT INTO `user` (`ID`, `Name`, `pw`, `mail`, `salt`, `status`) VALUES (NULL, '$name', '$pw', '$mail', '$salt', '0');";
+    $db_erg = mysqli_query($link, $sql);
+}
 if (! $db_erg) {
     header("Location: /?error=1");
   //  die ( 'Ungültige Abfrage: ' . mysqli_error () );
@@ -26,4 +29,5 @@ if (! $db_erg) {
 else {
     header("Location: /");
 }
+?>
 ?>
