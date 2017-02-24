@@ -80,7 +80,7 @@ if ($logout==true){
 </head>
 <body class="mdl-base" >
 <div id="preloader">
-    <div id="status">    <iframe src="loader.html" seamless sandbox="allow-scripts"></iframe> </div>
+    <div id="status">    <iframe src="loader.html" seamless sandbox="allow-scripts" scrolling="no" frameborder="NO" ></iframe> </div>
 </div>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs">
     <!-- Header -->
