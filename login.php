@@ -33,6 +33,7 @@ $sql="SELECT `status` FROM `user` WHERE `Name` = '$name' AND `pw` = '$pw'";
 $db_erg = mysqli_query ( $link, $sql );
 while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_NUM  )) {
     if ($zeile["0"]==0 or 1 == $zeile["0"]){
+        $su=true;
         $_SESSION['chat_sessionid']="$name";
         update_status($name);
         header("Location: main.php");
@@ -40,7 +41,6 @@ while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_NUM  )) {
 }
 //header("Location: /");
 
-if (! $db_erg) {
+if (! $db_erg OR $su==false) {
     header("Location: /");
 }
-
