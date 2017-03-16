@@ -72,6 +72,9 @@ function show_badge_num ($num){
         <!-- Platz für js für jquery UI -->
 
         <!-- JS Funktionen -->
+        function updateelement(id) {
+            $('#' + id).load(document.URL +  ' #' +id);
+        }
 
         function send (id) {
             var message = document.getElementById(id).value;
@@ -81,6 +84,7 @@ function show_badge_num ($num){
                 if (data == "success"){
                     console.log("Success");
                     document.getElementById(id).value = "";
+                    updateelement("test123");
                 }
                 else {
                     console.log("Failed ID:" + data);
@@ -130,16 +134,11 @@ function show_badge_num ($num){
                <div class="mdl-grid"> 
 
 			   <div class="mdl-layout-spacer"></div>
-
-                   <div style="background-color: cyan;" onload="this.reload();
-">
-
-<?php
-show_badge_num(3);
-?>
-
+                   <div id="test123">
+                       <?php
+                       show_badge_num(4);
+                       ?>
                    </div>
-<br>
                    <form action="#" onsubmit="send('sample1')">
                        <div class="mdl-textfield mdl-js-textfield">
                            <input class="mdl-textfield__input" type="text" id="sample1">
