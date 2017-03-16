@@ -70,6 +70,25 @@ function show_badge_num ($num){
         //]]>
 
         <!-- Platz für js für jquery UI -->
+
+        <!-- JS Funktionen -->
+        function send (id) {
+            var message = document.getElementById(id).value;
+            var typeid = 1;
+            var posting = $.post( "ReST/send.php", { message: message,roomid: id,typeid: typeid } );
+            posting.done(function( data ) {
+                if (data == "success"){
+                    console.log("Success");
+                    document.getElementById(id).value = "";
+                }
+                else {
+                    console.log("Failed ID:" + data);
+                }
+            });
+        }
+
+
+
     </script>
 
 </head>
@@ -89,11 +108,6 @@ function show_badge_num ($num){
 			<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="  <?php show_badge_num(1); ?>">Raum 1 </span></a>
             <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" data-badge=" <?php show_badge_num(2); ?>">Raum 2 </span></a>
             <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="  <?php show_badge_num(3); ?>">Raum 3 </span></a>
-
-            <!-- <a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="3">Raum 1 </span></a>
-            <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" data-badge="2">Raum 2 </span></a>
-            <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="7">Raum 3 </span></a> 
-        </div> -->
     </header>
     <main class="mdl-layout__content">
 <!-- Haupcontent -->
@@ -115,9 +129,24 @@ function show_badge_num ($num){
             <div class="page-content">
                 <!-- Raum 2 -->
                <div class="mdl-grid"> 
-			   Links
+
 			   <div class="mdl-layout-spacer"></div>
-			   Mitte
+
+                   <div style="background-color: cyan;" onload="this.reload();
+">
+
+<?php
+show_badge_num(3);
+?>
+
+                   </div>
+<br>
+                   <form action="#" onsubmit="send('sample1')">
+                       <div class="mdl-textfield mdl-js-textfield">
+                           <input class="mdl-textfield__input" type="text" id="sample1">
+                           <label class="mdl-textfield__label" for="sample1">Text...</label>
+                       </div>
+                   </form>
 			   
 			   <div class="mdl-layout-spacer"> </div>
 	
@@ -148,7 +177,7 @@ function show_badge_num ($num){
             echo "
     <li class='mdl-list__item mdl-list__item--two-line'>
         <span class='mdl-list__item-primary-content'>
-               <i class=\"material-icons mdl-list__item-avatar\"><img style=\"height: 40px; width: 40px; box-sizing: border-box; border-radius: 50%; background-color: rgb(117, 117, 117); font-size: 40px; color: rgb(255, 255, 255);\" src=\"$id.jpg\"></i>
+               <i class=\"material-icons mdl-list__item-avatar\"><img style=\"height: 40px; width: 40px; box-sizing: border-box; border-radius: 50%; background-color: rgb(117, 117, 117); font-size: 40px; color: rgb(255, 255, 255);\" src=\"img/$id.jpg\"></i>
            <span>$name</span>
            <span class='mdl-list__item-sub-title'>online</span>
         </span>
