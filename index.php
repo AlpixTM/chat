@@ -10,7 +10,6 @@ include_once 'dbconnect.php';
 $logout=$_GET['logout'];
 if ($logout==true){
     $name=$_SESSION['chat_sessionid'];
-    echo $name;
     $sql="UPDATE `user` SET `status` = '0' WHERE `Name`='$name'";
     mysqli_query($link,$sql);
     session_destroy();
