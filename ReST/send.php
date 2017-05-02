@@ -15,6 +15,15 @@ else {
     exit("F1");
 }
 if (empty($_POST["message"]) OR empty($_POST["roomid"]) OR empty($_POST["typeid"])) {
+    if (empty($_POST["message"])){
+        echo "mess";
+    }
+    if (empty($_POST["roomid"]))
+    {
+        echo "roomid";
+    }  if (empty($_POST["typeid"])){
+        echo "typeid";
+    }
     exit("F2");
 }
 $message = $_POST['message'];
