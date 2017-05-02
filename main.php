@@ -72,19 +72,35 @@ function show_badge_num ($num){
         <!-- Platz für js für jquery UI -->
 
         <!-- JS Funktionen -->
+
+
+        window.setInterval(function(){
+          updateelement('room2');
+          console.log("Chat erfolgreich neu geladen");
+          updateelement("onlist");
+          console.log("OnlineListe erfolgreich neu geladen");
+        }, 5000);
+
         function updateelement(id) {
-            $('#' + id).load(document.URL +  ' #' +id);
+          $('#' + id).load(document.URL +  ' #' +id);
         }
+        jQuery(document).ready(function(){
+            $("#onlistbutton").click(function() {
+                $("#onlist").toggle();
+            });
+        });
 
         function send (id) {
             var message = document.getElementById(id).value;
+            var rooomid = id.substr(4); // String muss Format "RoomXxxx" erfüllen um X zu bekommen
+            console.log(rooomid);
             var typeid = 1;
-            var posting = $.post( "ReST/send.php", { message: message,roomid: id,typeid: typeid } );
+            var posting = $.post( "ReST/send.php", { message: message,roomid: rooomid,typeid: typeid} );
             posting.done(function( data ) {
                 if (data == "success"){
                     console.log("Success");
                     document.getElementById(id).value = "";
-                    updateelement("test123");
+                    updateelement("room2");
                 }
                 else {
                     console.log("Failed ID:" + data);
@@ -104,69 +120,97 @@ function show_badge_num ($num){
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Chat</span>
+            <button onclick="location.href='https://chat.alpix.eu/index.php?logout=true';"  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                <i class="material-icons">exit_to_app</i>
+            </button>  <span class="mdl-layout-title">Chat</span>
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-			<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="  <?php show_badge_num(1); ?>">Raum 1 </span></a>
-            <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" data-badge=" <?php show_badge_num(2); ?>">Raum 2 </span></a>
-            <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="  <?php show_badge_num(3); ?>">Raum 3 </span></a>
+            <!--   	<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="  <?php show_badge_num(1); ?>">Raum 1 </span></a>-->
+       <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" >Hauptraum </span></a>
+        <!--        <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="  <?php show_badge_num(3); ?>">Raum 3 </span></a> -->
     </header>
     <main class="mdl-layout__content">
 <!-- Haupcontent -->
-        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+        <section class="mdl-layout__tab-panel" id="fixed-tab-1">
             <div class="page-content">
                 <!-- Raum 1 -->
 				  <div class="mdl-grid">
 
 
-       <div class="mdl-layout-spacer"></div>
-	 <iframe style="margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;"  src="loader.html" seamless></iframe>
-	         <div class="mdl-layout-spacer"></div>
+                      <div class="mdl-layout-spacer"></div>
+                      <iframe style="margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;"  src="loader.html" seamless></iframe>
+                      <div class="mdl-layout-spacer"></div>
 		
 </div>
 	
             </div>
         </section>
-        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-2">
             <div class="page-content">
-                <!-- Raum 2 -->
-               <div class="mdl-grid"> 
+               <div class="mdl-grid">
 
-			   <div class="mdl-layout-spacer"></div>
-                   <div id="test123">
-                       <?php
-                       show_badge_num(4);
-                       ?>
-                   </div>
-                   <form action="#" onsubmit="send('sample1')">
-                       <div class="mdl-textfield mdl-js-textfield">
-                           <input class="mdl-textfield__input" type="text" id="sample1">
-                           <label class="mdl-textfield__label" for="sample1">Text...</label>
-                       </div>
-                   </form>
-			   
-			   <div class="mdl-layout-spacer"> </div>
-	
-			   
-<ul class="mdl-list">
-<li style="text-align: center;"> Nutzer online in diesem Raum</li>
-  <li class="mdl-list__item mdl-list__item--two-line">
+<div id="onlistdiv">                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="onlistbutton">
+        Verbergen / Anzeigen
+    </button>
+                   <ul class="mdl-list" id="onlist">
+                       <li style="text-align: center;"> Nutzer online in diesem Raum</li>
+                       <li class="mdl-list__item mdl-list__item--two-line">
     <span class="mdl-list__item-primary-content">
       <i class="material-icons mdl-list__item-avatar"><img style="height: 40px; width: 40px; box-sizing: border-box; border-radius: 50%; background-color: rgb(117, 117, 117); font-size: 40px; color: rgb(255, 255, 255);" src="https://www.xing.com/image/b_3_2_6cf9a06b9_10799605_4/matthias-person-foto.256x256.jpg"></i>
-      <span>User 3</span>
+      <span>TEST_USER</span>
       <span class="mdl-list__item-sub-title">online</span>
     </span>
-    <span class="mdl-list__item-secondary-content">
+                           <span class="mdl-list__item-secondary-content">
       <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">info</i></a>
     </span>
-  </li>
+                       </li>
 
-    <?php
-    include 'includes/onlinelist.php';
-    ?>
 
-</ul>
+
+
+
+                       <?php
+                       include 'includes/onlinelist.php';
+                       ?>
+
+                   </ul></div>
+                   <div class="mdl-layout-spacer"> </div>
+<div1 style="overflow: auto;">
+    <br>
+    <br>
+                   <div id="room2" style="overflow: auto;">
+
+                       <table class="mdl-data-table mdl-js-data-table" style="display: table-row;overflow: auto;">
+                           <thead>
+                           <tr>
+                               <th class="mdl-data-table__cell">Uhrzeit</th>
+                               <th style=>Name</th>
+                               <th style="
+    max-width: 50%;
+">Nachricht</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+
+                           <?php
+                           include 'includes/messages.php';
+                           ?>
+                           </tbody>
+                       </table>
+                   </div>
+
+                   <br>
+               <form  action="" method="get" onsubmit="send('room2in');return false;">
+                       <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                           <input class="mdl-textfield__input" type="text" id="room2in">
+                           <label class="mdl-textfield__label" for="sample1">Nachricht...</label>
+                       </div>
+                   </form>
+                   </div1>
+			   <div class="mdl-layout-spacer"> </div>
+
+
 			   </div>
             </div>
         </section>
