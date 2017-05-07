@@ -77,10 +77,13 @@ function show_badge_num ($num){
         window.setInterval(function(){
           updateelement('room2');
           console.log("Chat erfolgreich neu geladen");
+          focusChat();
           updateelement("onlist");
           console.log("OnlineListe erfolgreich neu geladen");
         }, 5000);
-
+        function focusChat() {
+            document.getElementById("room2in").focus();
+        }
         function updateelement(id) {
           $('#' + id).load(document.URL +  ' #' +id);
         }
@@ -111,7 +114,7 @@ function show_badge_num ($num){
     </script>
 
 </head>
-<body class="mdl-base">
+<body class="mdl-base" onload="focusChat()">
 <div id="preloader">
     <div id="status">    <iframe src="loader.html" seamless sandbox="allow-scripts"></iframe> </div>
 </div>
@@ -201,9 +204,9 @@ function show_badge_num ($num){
                    </div>
 
                    <br>
-               <form  action="" method="get" onsubmit="send('room2in');return false;">
+               <form  action="" method="get" onsubmit="send('room2in');return false;" >
                        <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
-                           <input class="mdl-textfield__input" type="text" id="room2in">
+                           <input class="mdl-textfield__input" type="text" id="room2in" >
                            <label class="mdl-textfield__label" for="sample1">Nachricht...</label>
                        </div>
                    </form>
