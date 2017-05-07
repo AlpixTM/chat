@@ -69,7 +69,7 @@ function show_badge_num ($num){
         })
         //]]>
 
-        <!-- Platz für js für jquery UI -->
+
 
         <!-- JS Funktionen -->
 
