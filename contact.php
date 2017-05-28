@@ -5,6 +5,7 @@
  * Date: 20.01.17
  * Time: 16:56
  */
+// Nachfolgend werden die durch das Kontakt-Formular gesendeten Werte in eine E-Mail gepackt und an diese gesendet.
 $empfaenger = "contact@alpix.eu";
 $z="\n";
 $ip=$_SERVER['REMOTE_ADDR'];

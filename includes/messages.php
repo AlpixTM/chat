@@ -81,7 +81,7 @@ while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_ASSOC  )) {
     $temptime2= explode(":",$temptime[1]);
     $time =$temptime2[0]. ":". $temptime2[1];
     $name = get_name($userid);
-
+                                                        // Nachfolgend wird die Nachricht ausgegeben
         echo "   <tr>
      <td class=\"mdl-data-table__cell\">$time</td>
         <td>$name</td>
@@ -90,8 +90,6 @@ while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_ASSOC  )) {
     unset($nextmessage);
     unset($message);
     }
-
-
 
 
 mysqli_free_result ( $db_erg );

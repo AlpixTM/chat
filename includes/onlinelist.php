@@ -5,7 +5,7 @@
  * Date: 16.03.17
  * Time: 14:21
  */
-
+// Nachfolgend werden alle Nutzer ausgegeben, deren status = 1 => online ist
     $sql="SELECT `ID`,`Name`,`img` FROM `user` WHERE `status` = '1'";
     $db_erg = mysqli_query ( $link, $sql );
     if (! $db_erg) {

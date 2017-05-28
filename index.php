@@ -6,13 +6,13 @@
  * Time: 20:25
  */
 session_start();
-include_once 'dbconnect.php';
+include_once 'dbconnect.php';                                            // DB-Verbindung wird aufgebaut, abrufbar unter "$link"
 $logout=$_GET['logout'];
-if ($logout==true){
-    $name=$_SESSION['chat_sessionid'];
-    $sql="UPDATE `user` SET `status` = '0' WHERE `Name`='$name'";
+if ($logout==true){                                                      // Ist true, wenn der Nutzer auf der Hauptseite auf den Logout-Button gedrückt hat
+    $name=$_SESSION['chat_sessionid'];                                   // Name wird aus der Session gelesen
+    $sql="UPDATE `user` SET `status` = '0' WHERE `Name`='$name'";        // Status wird auf 0 => offline gesetzt
     mysqli_query($link,$sql);
-    session_destroy();
+    session_destroy();                                                   // Session wird zerstört
     header("Location: /");
 }
 ?>
@@ -25,6 +25,8 @@ if ($logout==true){
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="material.min.css">
+
+    <!-- Auf dieser Seite kann der Nutzer sich anmelden, registrieren und ein Kontakt-Formular ausfüllen -->
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

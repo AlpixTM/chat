@@ -5,20 +5,14 @@
  * Date: 15.01.17
  * Time: 12:49
  */
+
+// Auf dieser Seite befindet sich der Chat
+
 session_start();
 include_once 'dbconnect.php';
-if ($_SESSION['chat_sessionid']) {
-  // echo "logged in ";
-  $sesion=$_SESSION['chat_sessionid'];
-}
-else {
-    print_r($_SESSION);
-    header("Location: https://chat.alpix.eu/");
+if (!$_SESSION['chat_sessionid']) {                          // Prüft ob Session besteht => ob der Nutzer angemeldet ist. Wenn nicht, dann...
+    header("Location: /");                             // ... wird der Nutzer auf die Wurzel weitergeleitet
     die("Bitte neu einloggen");
-}
-function show_badge_num ($num){
-	$num =rand(3,9);
-	echo $num;
 }
 ?>
 <html lang="de">
@@ -60,7 +54,9 @@ function show_badge_num ($num){
     </style>
     <script>
         <!-- JS Preload - Quelle unbekannt -->
-		
+
+        // Nachfolgend wird der Loader ausgebelendet, sobald die Seite geladen ist
+
         //<![CDATA[
         $(window).load(function() { // makes sure the whole site is loaded
             $('#status').fadeOut(); // will first fade out the loading animation
@@ -72,9 +68,10 @@ function show_badge_num ($num){
 
 
         <!-- JS Funktionen -->
-        var scroll = false;
 
-        window.setInterval(function(){
+
+
+        window.setInterval(function(){                                      // Alle 5000 ms werden die Funktion updateelement ausgeführt -> Elemente wird neu geladen
           updateelement('room2');
           console.log("Chat erfolgreich neu geladen");
           focusChat();
@@ -82,52 +79,51 @@ function show_badge_num ($num){
           console.log("OnlineListe erfolgreich neu geladen");
         }, 5000);
 
-        function focusChat() {
+        var scroll = false;                                                 // Daktiviert das automatische Scrollen zum input
+
+        function focusChat() {                                              // Automatisches Scrollen zum input, wenn scroll = true
             if (scroll== true){
             var speed = 1000;
             var target = $(room2in);
             var position = target.offset().top;
             $(".mdl-layout__content").animate({scrollTop:position}, speed, "swing",);
+            }
         }
-        }
-        function updateelement(id) {
+        function updateelement(id) {                                        // Läd betreffendes Element neu
           $('#' + id).load(document.URL +  ' #' +id);
         }
         jQuery(document).ready(function(){
-            $("#onlistbutton").click(function() {
+            $("#onlistbutton").click(function() {                           // Lässt die online-list verschwinden beim Klick auf den Button
                 $("#onlist").toggle();
             });
-            $("#onscroll").click(function() {
+            $("#onscroll").click(function() {                               // Setzt scroll auf den jeweils anderen Wert beim Klick auf den Button -> AutoScroll aus / an
                 if (scroll== true){
-                    scroll= false;
+                    scroll= false;                                          // AUS
                 }
                 else {
-                    scroll= true;
+                    scroll= true;                                           // AN
                 }
 
             });
         });
 
-        function send (id) {
-            var message = document.getElementById(id).value;
-            var rooomid = id.substr(4); // String muss Format "RoomXxxx" erfüllen um X zu bekommen
-            console.log(rooomid);
-            var typeid = 1;
-            var posting = $.post( "ReST/send.php", { message: message,roomid: rooomid,typeid: typeid} );
+        function send (id) {                                                // Versendet die Nachricht
+            var message = document.getElementById(id).value;                // Holt sich den Wert => Nachricht aus dem Input
+            var rooomid = id.substr(4);                                     // String muss Format "RoomXxxx" erfüllen um X zu bekommen => Raum-Nummer
+            var typeid = 1;                                                 // typeid = 1 => normaler Text
+            var posting = $.post( "ReST/send.php", { message: message,roomid: rooomid,typeid: typeid} );   // Sendet die Nachricht mit den anderen Parametern an "send.php" => an den Chat
             posting.done(function( data ) {
                 if (data == "success"){
                     console.log("Success");
-                    document.getElementById(id).value = "";
-                    updateelement("room2");
+                    document.getElementById(id).value = "";                 // Input-Feld wird leer gemacht
+                    updateelement("room2");                                 // Läd den Chat neu, damit die Nachricht dirket angezeicht wird
                 }
                 else {
-                    console.log("Failed ID:" + data);
+                    console.log("Failed ID:" + data);                       // Bei Fehlern wird der Fehler-Code in den Log geschrieben
                 }
             });
         }
-
     </script>
-
 </head>
 <body class="mdl-base" onload="focusChat()">
 <div id="preloader">
@@ -144,9 +140,9 @@ function show_badge_num ($num){
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-            <!--   	<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" data-badge="  <?php show_badge_num(1); ?>">Raum 1 </span></a>-->
+            <!--   	<a href="#fixed-tab-1" class="mdl-layout__tab is-active"><span class="mdl-badge" >Raum 1 </span></a>-->
        <a href="#fixed-tab-2" class="mdl-layout__tab"><span class="mdl-badge" >Hauptraum </span></a>
-        <!--        <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" data-badge="  <?php show_badge_num(3); ?>">Raum 3 </span></a> -->
+        <!--        <a href="#fixed-tab-3" class="mdl-layout__tab"><span class="mdl-badge" >Raum 3 </span></a> -->
     </header>
     <main class="mdl-layout__content">
 <!-- Haupcontent -->
@@ -187,7 +183,7 @@ function show_badge_num ($num){
 
 
 
-                       <?php
+                       <?php                                                // Bindet die online Liste ein
                        include 'includes/onlinelist.php';
                        ?>
 
@@ -210,7 +206,7 @@ function show_badge_num ($num){
                            </thead>
                            <tbody>
 
-                           <?php
+                           <?php                                            // Bindet die Nachrichten ein => Chat wird angezeigt
                            include 'includes/messages.php';
                            ?>
                            </tbody>
