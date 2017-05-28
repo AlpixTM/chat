@@ -72,7 +72,7 @@ function show_badge_num ($num){
 
 
         <!-- JS Funktionen -->
-
+        var scroll = true;
 
         window.setInterval(function(){
           updateelement('room2');
@@ -81,8 +81,14 @@ function show_badge_num ($num){
           updateelement("onlist");
           console.log("OnlineListe erfolgreich neu geladen");
         }, 5000);
+
         function focusChat() {
-            document.getElementById("room2in").focus();
+            if (scroll== true){
+            var speed = 2000;
+            var target = $(room2in);
+            var position = target.offset().top;
+            $(".mdl-layout__content").animate({scrollTop:position}, speed, "swing",);
+        }
         }
         function updateelement(id) {
           $('#' + id).load(document.URL +  ' #' +id);
@@ -90,6 +96,15 @@ function show_badge_num ($num){
         jQuery(document).ready(function(){
             $("#onlistbutton").click(function() {
                 $("#onlist").toggle();
+            });
+            $("#onscroll").click(function() {
+                if (scroll== true){
+                    scroll= false;
+                }
+                else {
+                    scroll= true;
+                }
+
             });
         });
 
@@ -156,6 +171,7 @@ function show_badge_num ($num){
 <div id="onlistdiv">                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="onlistbutton">
         Verbergen / Anzeigen
     </button>
+
                    <ul class="mdl-list" id="onlist">
                        <li style="text-align: center;"> Nutzer online in diesem Raum</li>
                        <li class="mdl-list__item mdl-list__item--two-line">
@@ -184,7 +200,7 @@ function show_badge_num ($num){
     <br>
                    <div id="room2" style="overflow: auto;">
 
-                       <table class="mdl-data-table mdl-js-data-table" style="display: table-row;overflow: auto;">
+                       <table  class="mdl-data-table mdl-js-data-table" style="display: table-row;overflow: auto;">
                            <thead>
                            <tr>
                                <th class="mdl-data-table__cell">Uhrzeit</th>
@@ -204,13 +220,20 @@ function show_badge_num ($num){
                    </div>
 
                    <br>
+
                <form  action="" method="get" onsubmit="send('room2in');return false;" >
-                       <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+                       <div class="mdl-textfield mdl-js-textfield" style="width: 100%;z-index: 200;">
                            <input class="mdl-textfield__input" type="text" id="room2in" >
                            <label class="mdl-textfield__label" for="sample1">Nachricht...</label>
                        </div>
                    </form>
+    <div id="onscroll" style="text-align:center;">
+        <button  class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="onscroll">
+            Automatisch Scrollen AN / AUS
+        </button>
+    </div>
                    </div1>
+
 			   <div class="mdl-layout-spacer"> </div>
 
 
