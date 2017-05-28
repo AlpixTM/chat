@@ -8,14 +8,14 @@
 include 'dbconnect.php';
 function get_name($id){
 include 'dbconnect.php';
-$name = "unbekannt";
+$name = "unbekannt"; //Fallback falls der Name nicht über die ID gefunden wird. (Warum auch immer)
     $sql="SELECT `name` FROM `user` WHERE `ID` = $id";
     $db_erg= mysqli_query($link,$sql);
     if (! $db_erg) {
         die ( 'Ungültige Abfrage: ' . mysqli_error () );
     }
     if ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_NUM  )){
-        $name= $zeile['0'];
+        $name= $zeile['0']; // Nimmt ersten Eintrag. Wenn mehrere Accounts mit der ID verbunden sind, wird also nur der Erste genommen.
     }
     return $name;
 }
@@ -25,23 +25,26 @@ if (! $db_erg) {
     die ( 'Ungültige Abfrage: ' . mysqli_error () );
 }
 while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_ASSOC  )) {
-    $tempmessage =explode(" ",  $zeile['txt']);
-    $runde =0; // Bereits erfolgte Durchgänge = Bearbeitete Worte
-    $i = 0; // Wortanzahl die bereits abgearbeitet wurde und in der aktuellen Zeihle stehen wird
-$ii=0; // Zerlegung von langen Wörtern in Teilworte auf Basis der durchschnittlich 10 Zeichen pro deutschem Wort
+                                                        // Nachfolgend werden Zeilenumbrüche eingefügt um die Länge der einzelnen Zeilen im Chat zu regulieren
+    $tempmessage =explode(" ",  $zeile['txt']); // Nachricht wird in einzelne Worte zersetzt. Trennungsmerkmal eines Wortes ist ein Leerzeichen.
+    $runde =0;                                          // Bereits erfolgte Durchgänge = Verarbeitete Worte
+    $i= 0;                                              // Wortanzahl die bereits abgearbeitet wurde und der aktuellen Zeile zugeordnet wurde
+    $ii=0;                                              /* Anzahl von Teilen eines zerlegten Wortes -
+                                                           Zerlegung von langen Wörtern in Teilworte auf Basis der durchschnittlich 10 Zeichen pro deutschem Wort
+                                                           -> So werden lange Zeichenketten getrennt
+                                                        */
     foreach ($tempmessage as $value){
-        $runde ++;
-        $i++;
-        $ii= ceil(strlen($value)/10);
-        if ($ii > 1){
-            $ii--;
-            $i = $i + $ii;
+        $runde ++;                                      // +1 Durchgang
+        $i++;                                           // +1 Wort in der aktuellen Zeile. Wird nach Zeilenumbruch auf 0 gesetzt
+        $ii= ceil(strlen($value)/10);             // Anzahl der Wortteile die aus dem Wort entsethen. Als Wort zählen jeweils 10 Zeichen, wenn das Wort länger als 10 ist
+        if ($ii > 1){                                   // Wenn Zeichenkette als mehr als nur ein Wort zählt (Ab 20 Zeichen -> $ii = Zeichenkettenlänge/10 > 1)
+            $ii--;                                      // -1 Wort wenn das Wort z.b. als 3 zählt ( zwischen 30 -40 Zeichen), weil jede Zeichenkette schon in §i als ein Wort in der Zeile zählt
+            $i = $i + $ii;                              // $i (Anzahl der bisherigen Worte in der Zeile) + $ii (Als wieviel Wörter ein langes Wort zählt)
         }
-        if ($ii > 4){
-            $tempword= str_split($value, 50);
-        //    print_r($tempword) ;
-            $wordrunde=0;
-            foreach ($tempword as $tempvalue){
+        if ($ii > 4){                                   // Wenn das Wort länger als 50 Zeichen ist >50/10=>4 muss es nach 50 Zeichen gebrochen werden,da nur 50 Wörter->max 50 Zeichen pro Zeile
+            $tempword= str_split($value, 50); // Zeichenkette wird an allen 50 Zeichen gebrochen
+            $wordrunde=0;                               // Über wieviele Durchgänge = Zeilen das Wort schon gebrochen wird
+            foreach ($tempword as $tempvalue){          // Jeder Wortteil wird nachfolgend mit -<br> geteilt und in der Zeile platziert
                 if ($wordrunde == 0){
                     $nextmessage=$tempvalue;
                 }
@@ -51,23 +54,21 @@ $ii=0; // Zerlegung von langen Wörtern in Teilworte auf Basis der durchschnittl
                 }
                 $wordrunde++;
             }
-            // echo $nextmessage;
-        } else {
-            if ($i >= 4) {
-
-                if ($runde != 1) {
-                    $i = 0;
-                    $nextmessage = $nextmessage . "<br>" . $value;
-                } else {
-                    $nextmessage = $value . "<br>";
+        } else {                                        // Wenn das Wort nicht länger als 10 Zeichen ist und somit als ein Wort zählt
+            if ($i >= 4) {                              // Wenn sich in der Zeile schon mehr als 5 Wörter befinden
+                if ($runde != 1) {                      // Wenn es sich nicht um den erste Durchgang = Zeile handelt
+                    $nextmessage = $nextmessage . "<br>" . $value; // Wort wird mit Zeilenumbruch angehängt
+                    $i = 0;                             // Anzahl der Wörter in der aktuellen Zeile werden auf 0 gesetzt
+                } else {                                // Wenn es sich um den ersten Durchgang = Zeile handelt
+                    $nextmessage = $value . "<br>";     // Zeilenumbruch wird nach dem Wert angehängt
                 }
-            } else {
-                $nextmessage = $nextmessage . " " . $value;
+            } else {                                    // Wenn sich in der Zeile noch nicht mehr als 4 Wörter befinden
+                $nextmessage = $nextmessage . " " . $value;// Wort wird der aktuellen Zeile angehängt
             }
         }
         $ii=0;
     }
-    $message=$nextmessage;
+    $message=$nextmessage;                              // Message wird mit den eingefügten Zeilenumbrüchen eingefügt
     $userid = $zeile['userid'];
     $temptime= explode(" ", $zeile['time']);
     $temptime2= explode(":",$temptime[1]);
