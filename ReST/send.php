@@ -26,9 +26,9 @@ if (empty($_POST["message"]) OR empty($_POST["roomid"]) OR empty($_POST["typeid"
     }
     exit("F2");
 }
-$message = $_POST['message'];
-$roomid= $_POST['roomid'];
-$typeid= $_POST['typeid'];
+$message = mysqli_real_escape_string($link, $_POST['message']);
+$roomid= mysqli_real_escape_string($link, $_POST['roomid']);
+$typeid= mysqli_real_escape_string($link, $_POST['typeid']);
 $sql="INSERT INTO `messages` (`id`, `roomid`, `typeid`, `userid`, `txt`, `time`) VALUES (NULL,'$roomid', '$typeid', '$userid', '$message',CURRENT_TIMESTAMP);";
 $db_erg=mysqli_query($link,$sql);
 

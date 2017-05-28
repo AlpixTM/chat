@@ -13,10 +13,10 @@ function encrypt ($pw) {
 }
 include_once 'dbconnect.php';
 $salt = uniqid().uniqid().uniqid().uniqid().uniqid();
-$name=$_POST['Name'];
-$mail=$_POST['mail'];
-$pw1=$_POST['pw'];
-$pw=$_POST['pw'].$salt;
+$name=mysqli_real_escape_string($link,$_POST['Name']);
+$mail=mysqli_real_escape_string($link,$_POST['mail']);
+$pw1=mysqli_real_escape_string($link,$_POST['pw']);
+$pw=mysqli_real_escape_string($link,$_POST['pw'].$salt);
 $pw=encrypt($pw);
 if ($name != "" && $mail != "" && $pw1 != "") {
     $sql = "INSERT INTO `user` (`ID`, `Name`, `pw`, `mail`, `salt`, `status`) VALUES (NULL, '$name', '$pw', '$mail', '$salt', '0');";

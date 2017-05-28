@@ -19,12 +19,12 @@ $name = "unbekannt"; //Fallback falls der Name nicht über die ID gefunden wird.
     }
     return $name;
 }
-$max_messages= $_GET['max_messages'];
+$max_messages= mysqli_real_escape_string($link,$_GET['max_messages']);
 if (!$max_messages OR $max_messages == 0){
     $sql="SELECT * FROM  (SELECT * FROM `messages` ORDER BY `ID` DESC LIMIT 0, 12) TEMP1 ORDER BY `ID`  ASC"; // Holt sich die letzten 12 Nachrichten
 }
 if ($max_messages){
-    $sql="SELECT * FROM  (SELECT * FROM `messages` ORDER BY `ID` DESC LIMIT 0, 5) TEMP1 ORDER BY `ID`  ASC";
+    $sql="SELECT * FROM  (SELECT * FROM `messages` ORDER BY `ID` DESC LIMIT 0, $max_messages) TEMP1 ORDER BY `ID`  ASC";
 }
 
 $db_erg = mysqli_query ( $link, $sql );
