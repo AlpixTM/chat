@@ -72,7 +72,7 @@ function show_badge_num ($num){
 
 
         <!-- JS Funktionen -->
-        var scroll = true;
+        var scroll = false;
 
         window.setInterval(function(){
           updateelement('room2');
@@ -84,7 +84,7 @@ function show_badge_num ($num){
 
         function focusChat() {
             if (scroll== true){
-            var speed = 2000;
+            var speed = 1000;
             var target = $(room2in);
             var position = target.offset().top;
             $(".mdl-layout__content").animate({scrollTop:position}, speed, "swing",);
@@ -184,8 +184,6 @@ function show_badge_num ($num){
       <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">info</i></a>
     </span>
                        </li>
-
-
 
 
 
