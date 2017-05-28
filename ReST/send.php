@@ -29,11 +29,13 @@ if (empty($_POST["message"]) OR empty($_POST["roomid"]) OR empty($_POST["typeid"
 $message = $_POST['message'];
 $roomid= $_POST['roomid'];
 $typeid= $_POST['typeid'];
-$sql="INSERT INTO `messages` (`id`, `roomid`, `typeid`, `userid`, `txt`, `time`) VALUES (NULL, '$roomid', '$typeid', '$userid', '$message', CURRENT_TIMESTAMP);";
+$sql="INSERT INTO `messages` (`id`, `roomid`, `typeid`, `userid`, `txt`, `time`) VALUES (NULL,'$roomid', '$typeid', '$userid', '$message',CURRENT_TIMESTAMP);";
 $db_erg=mysqli_query($link,$sql);
+
 if ($db_erg){
     echo"success";
 }
-else{
+else {
     exit("F3");
 }
+mysqli_free_result ( $db_erg );
