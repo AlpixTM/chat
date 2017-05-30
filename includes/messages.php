@@ -6,6 +6,9 @@
  * Time: 14:58
  */
 include 'dbconnect.php';
+include_once (dirname(__FILE__)."/../Escaper/Escaper.php");  // Escaper class um xss zu verhindern
+$escaper = new Zend\Escaper\Escaper('utf-8');
+
 function get_name($id){
 include 'dbconnect.php';
 $name = "unbekannt"; //Fallback falls der Name nicht über die ID gefunden wird. (Warum auch immer)
@@ -75,12 +78,12 @@ while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_ASSOC  )) {
         }
         $ii=0;
     }
-    $message=$nextmessage;                              // Message wird mit den eingefügten Zeilenumbrüchen eingefügt
+    $message=$escaper->escapeHtml($nextmessage);                              // Message wird mit den eingefügten Zeilenumbrüchen eingefügt
     $userid = $zeile['userid'];
     $temptime= explode(" ", $zeile['time']);
     $temptime2= explode(":",$temptime[1]);
     $time =$temptime2[0]. ":". $temptime2[1];
-    $name = get_name($userid);
+    $name = $escaper->escapeHtml(get_name($userid));
                                                         // Nachfolgend wird die Nachricht ausgegeben
         echo "   <tr>
      <td class=\"mdl-data-table__cell\">$time</td>
