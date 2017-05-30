@@ -36,7 +36,7 @@ if (! $db_erg) {
 }
 while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_ASSOC  )) {
                                                         // Nachfolgend werden Zeilenumbrüche eingefügt um die Länge der einzelnen Zeilen im Chat zu regulieren
-    $tempmessage =explode(" ",  $zeile['txt']); // Nachricht wird in einzelne Worte zersetzt. Trennungsmerkmal eines Wortes ist ein Leerzeichen.
+    $tempmessage =explode(" ",  $escaper->escapeHtml($zeile['txt'])); // Nachricht wird in einzelne Worte zersetzt. Trennungsmerkmal eines Wortes ist ein Leerzeichen.
     $runde =0;                                          // Bereits erfolgte Durchgänge = Verarbeitete Worte
     $i= 0;                                              // Wortanzahl die bereits abgearbeitet wurde und der aktuellen Zeile zugeordnet wurde
     $ii=0;                                              /* Anzahl von Teilen eines zerlegten Wortes -
@@ -78,7 +78,7 @@ while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_ASSOC  )) {
         }
         $ii=0;
     }
-    $message=$escaper->escapeHtml($nextmessage);                              // Message wird mit den eingefügten Zeilenumbrüchen eingefügt
+    $message=$nextmessage;                              // Message wird mit den eingefügten Zeilenumbrüchen eingefügt
     $userid = $zeile['userid'];
     $temptime= explode(" ", $zeile['time']);
     $temptime2= explode(":",$temptime[1]);
