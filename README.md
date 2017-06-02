@@ -1,3 +1,2 @@
 # chat
-Chat
-Test https://chat.alpix.eu
+Test: https://chat.alpix.eu
