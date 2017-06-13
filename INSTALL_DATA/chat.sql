@@ -1,4 +1,3 @@
-// SQL DUMP
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,13 +22,13 @@ USE `chat`;
 
 DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
-  `id` int(15) NOT NULL,
+`id` int(15) NOT NULL,
   `roomid` int(10) NOT NULL,
   `typeid` int(11) NOT NULL,
   `userid` int(10) NOT NULL,
   `txt` text NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -39,14 +38,15 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `ID` int(11) NOT NULL,
+`ID` int(11) NOT NULL,
   `Name` varchar(16) NOT NULL,
   `pw` text NOT NULL,
   `mail` varchar(36) NOT NULL,
   `salt` text NOT NULL,
   `status` int(5) NOT NULL,
-  `img` tinyint(1) DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+  `img` tinyint(1) DEFAULT '0',
+  `ip` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Indizes der exportierten Tabellen
@@ -72,12 +72,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT für Tabelle `messages`
 --
 ALTER TABLE `messages`
-MODIFY `id` int(15) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
+MODIFY `id` int(15) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=87;
 --
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

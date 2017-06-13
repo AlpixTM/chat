@@ -10,10 +10,20 @@
 
 session_start();
 include_once 'dbconnect.php';
+include_once 'config.php';
 function encrypt ($pw) {                                                                // Das PW wird mit dem algo "sha256" codiert
     $hash = hash('sha256', $pw);
     $pw_en=$hash;
     return $pw_en;                                                                      // Gibt das codierte PW zurück
+}
+function update_ip($name){                                                         // Sobald der Nutzer eingeloggt wurde wird der status auf 1 => online gestellt.
+    global $link;
+    global $ip_log;
+    if ($ip_log == true){
+    $ip=$_SERVER['REMOTE_ADDR'];
+    $sql="UPDATE `user` SET `ip` = '$ip' WHERE `Name`='$name'";
+    mysqli_query($link,$sql);
+}
 }
 function update_status ($name){                                                         // Sobald der Nutzer eingeloggt wurde wird der status auf 1 => online gestellt.
     global $link;
@@ -42,6 +52,7 @@ while ($zeile = mysqli_fetch_array ( $db_erg, MYSQL_NUM  )) {
         $_SESSION['chat_sessionid']="$name";                                            // Login war erfolgreich, name und id werden in die Session gespeichert
         $_SESSION['chat_userid']="$userid";
         update_status($name);                                                           // Die Funktion, die den Online-Status updatet wird aufgerufen
+        update_ip($name);
         header("Location: main.php");                                             // Eingelogter Nutzer wird auf die "Hauptseite" weitergeleitet
     }
 }
