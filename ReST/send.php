@@ -10,6 +10,8 @@
 
 session_start();
 include_once 'dbconnect.php';
+include_once (dirname(__FILE__)."/../config.php");
+$ip=$_SERVER['REMOTE_ADDR'];
 if ($_SESSION['chat_sessionid']) {                  // Wenn der Nutzer auch wirklich angemeldet ist, dann ...
     $userid=$_SESSION['chat_userid'];               // ... wird seine User-ID gespeichert
 }
@@ -32,7 +34,12 @@ if (empty($_POST["message"]) OR empty($_POST["roomid"]) OR empty($_POST["typeid"
 $message = mysqli_real_escape_string($link, $_POST['message']);
 $roomid= mysqli_real_escape_string($link, $_POST['roomid']);
 $typeid= mysqli_real_escape_string($link, $_POST['typeid']);
-$sql="INSERT INTO `messages` (`id`, `roomid`, `typeid`, `userid`, `txt`, `time`) VALUES (NULL,'$roomid', '$typeid', '$userid', '$message',CURRENT_TIMESTAMP);"; // Nachricht wird in DB gespeichert
+if ($ip_log == true) {
+    $sql = "INSERT INTO `messages` (`id`, `roomid`, `typeid`, `userid`, `txt`, `time`, `ip` ) VALUES (NULL,'$roomid', '$typeid', '$userid', '$message',CURRENT_TIMESTAMP,'$ip');"; // Nachricht wird in DB gespeichert
+}
+else {
+    $sql = "INSERT INTO `messages` (`id`, `roomid`, `typeid`, `userid`, `txt`, `time`, `ip` ) VALUES (NULL,'$roomid', '$typeid', '$userid', '$message',CURRENT_TIMESTAMP,'ip logging off');"; // Nachricht wird in DB gespeichert
+}
 $db_erg=mysqli_query($link,$sql);
 
 if ($db_erg){

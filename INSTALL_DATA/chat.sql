@@ -1,4 +1,3 @@
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -20,14 +19,14 @@ USE `chat`;
 -- Tabellenstruktur für Tabelle `messages`
 --
 
-DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
 `id` int(15) NOT NULL,
   `roomid` int(10) NOT NULL,
   `typeid` int(11) NOT NULL,
   `userid` int(10) NOT NULL,
   `txt` text NOT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip` text NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -36,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `messages` (
 -- Tabellenstruktur für Tabelle `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
 `ID` int(11) NOT NULL,
   `Name` varchar(16) NOT NULL,
