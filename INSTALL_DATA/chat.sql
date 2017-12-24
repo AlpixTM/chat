@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `mail` varchar(36) NOT NULL,
   `salt` text NOT NULL,
   `status` int(5) NOT NULL,
+  `status_update` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `img` tinyint(1) DEFAULT '0',
   `ip` text NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
