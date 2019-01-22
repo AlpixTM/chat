@@ -9,9 +9,12 @@
 // Auf dieser Seite befindet sich der Chat
 
 session_start();
+
 include_once 'dbconnect.php';
 include_once 'chatFunctions.php';
+
 isLoggedIn();
+
 ?>
 <html lang="de">
 <head>

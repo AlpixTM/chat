@@ -18,8 +18,7 @@ function encrypt($pw)
     return $pw_en;                                                                      // Gibt das codierte PW zurück
 }
 
-function update_ip($name)
-{                                                         // Sobald der Nutzer eingeloggt wurde wird der status auf 1 => online gestellt.
+function update_ip($name) {                                                         // Sobald der Nutzer eingeloggt wurde wird der status auf 1 => online gestellt.
     global $link;
     global $ip_log;
     if ($ip_log == true) {
@@ -29,8 +28,7 @@ function update_ip($name)
     }
 }
 
-function update_status($name)
-{                                                         // Sobald der Nutzer eingeloggt wurde wird der status auf 1 => online gestellt.
+function update_status($name) {                                                         // Sobald der Nutzer eingeloggt wurde wird der status auf 1 => online gestellt.
     global $link;
     $sql = "UPDATE `user` SET `status` = '1' WHERE `Name`='$name'";
     mysqli_query($link, $sql);
@@ -40,9 +38,9 @@ $name = mysqli_real_escape_string($link, $_POST['Name']);
 $sql = "SELECT `salt` FROM `user` WHERE `Name` = '$name'";                                // Der Salt, ein Wert, der an das PW gehängt wird um es vor decodierung zu schützen,
 $db_erg = mysqli_query($link, $sql);                                                 // wird über den Nutzernamen geholt
 if (!$db_erg) {
-    die ('Ungültige Abfrage: ' . mysqli_error());
+    die ('Ungültige Abfrage: ' . mysqli_error($link));
 }
-while ($zeile = mysqli_fetch_array($db_erg, MYSQL_ASSOC)) {
+while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
     $salt = $zeile['salt'];
 }
 mysqli_free_result($db_erg);
@@ -50,7 +48,7 @@ $pw = mysqli_real_escape_string($link, $_POST['pw'] . $salt);                   
 $pw = encrypt($pw);                                                                       // Das PW wird codiert
 $sql = "SELECT `status`,`id` FROM `user` WHERE `Name` = '$name' AND `pw` = '$pw'";
 $db_erg = mysqli_query($link, $sql);
-while ($zeile = mysqli_fetch_array($db_erg, MYSQL_NUM)) {
+while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_NUM)) {
     $userid = $zeile["1"];
     if ($zeile["0"] == 0 or 1 == $zeile["0"]) {
         $su = true;
@@ -63,5 +61,5 @@ while ($zeile = mysqli_fetch_array($db_erg, MYSQL_NUM)) {
 }
 
 if (!$db_erg OR $su == false) {                                                           // Ist das Login fehlgeschlagen, dann wird der nutzer wieder auf die Wurzel weitergeleitet
-    header("Location: /");
+    header("Location: /#LoginFailed");
 }

@@ -10,7 +10,7 @@ include_once 'dbconnect.php';
 date_default_timezone_set('Europe/Berlin');
 
 
-function isLoggedIn (){
+function isLoggedIn() {
     $url = parse_url($_SERVER['REQUEST_URI']);
     $url = $url['path'];
     if ($_SESSION['chat_sessionid']) {                          // Prüft ob Session besteht => ob der Nutzer angemeldet ist. Wenn ja, dann update session, damit timestamp geupdatet wird

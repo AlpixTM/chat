@@ -18,7 +18,9 @@ if ($_SESSION['chat_sessionid']) {                  // Wenn der Nutzer auch wirk
 } else {
     exit("F1");                                     // Wenn der Nutzer keine Session hat => nicht angemeldet ist, dann bricht das Script mit dem Status "F1" ab
 }
+
 isLoggedIn();
+
 if (empty($_POST["message"]) OR empty($_POST["roomid"]) OR empty($_POST["typeid"])) {   // Prüft ob alle benötigten Daten vorhanden sind
     if (empty($_POST["message"])) {
         echo "message fehlt";
@@ -32,6 +34,7 @@ if (empty($_POST["message"]) OR empty($_POST["roomid"]) OR empty($_POST["typeid"
     exit("F2");                                     // Wenn Daten fehlen bricht das Script mit dem Status "F2" ab, vorher werden die fehlenden Daten ausgegeben => später im log gespeichtert
     // (siehe main.php - js Funktion send)
 }
+
 $message = mysqli_real_escape_string($link, $_POST['message']);
 $roomid = mysqli_real_escape_string($link, $_POST['roomid']);
 $typeid = mysqli_real_escape_string($link, $_POST['typeid']);
@@ -47,4 +50,6 @@ if ($db_erg) {
 } else {
     exit("F3");                                     // Bei Misserfolg wird das Script mit dem Status "F3" abgebrochen
 }
+
 mysqli_free_result($db_erg);
+?>

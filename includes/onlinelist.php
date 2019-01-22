@@ -15,10 +15,10 @@ $sql = "SELECT `ID`,`Name`,`img` FROM `user` WHERE `status` = '1' AND `status_up
 $db_erg = mysqli_query($link, $sql);
 
 if (!$db_erg) {
-    die ('Ungültige Abfrage: ' . mysqli_error());
+    die ('Ungültige Abfrage: ' . mysqli_error($link));
 }
 
-while ($zeile = mysqli_fetch_array($db_erg, MYSQL_ASSOC)) {
+while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
     $name   = $zeile['Name'];
     $id     = $zeile['ID'];
     $img    = $zeile['img'];
@@ -51,5 +51,7 @@ while ($zeile = mysqli_fetch_array($db_erg, MYSQL_ASSOC)) {
         ";
     }
 }
+
 mysqli_free_result($db_erg);
+
 ?>

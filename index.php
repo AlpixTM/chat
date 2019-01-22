@@ -8,12 +8,14 @@
 session_start();
 include_once 'dbconnect.php';                                               // DB-Verbindung wird aufgebaut, abrufbar unter "$link"
 include_once 'chatFunctions.php';
+
 $logout = $_GET['logout'];
+
 if ($logout == true) {                                                      // Ist true, wenn der Nutzer auf der Hauptseite auf den Logout-Button gedrückt hat
-    $name = $_SESSION['chat_sessionid'];                                   // Name wird aus der Session gelesen
-    $sql = "UPDATE `user` SET `status` = '0' WHERE `Name`='$name'";        // Status wird auf 0 => offline gesetzt
+    $name = $_SESSION['chat_sessionid'];                                    // Name wird aus der Session gelesen
+    $sql = "UPDATE `user` SET `status` = '0' WHERE `Name`='$name'";         // Status wird auf 0 => offline gesetzt
     mysqli_query($link, $sql);
-    session_destroy();                                                   // Session wird zerstört
+    session_destroy();                                                      // Session wird zerstört
     header("Location: /");
 }
 

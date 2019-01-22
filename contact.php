@@ -15,7 +15,6 @@ $text = $text . $z . "IP:" . $ip;
 foreach ($_POST as $key => $value) {
     $text = $text . $z . $key . " : " . $value;
 }
-echo $text;
 $betreff = "Neuer Eintrag im Formular der Chatsite";
 $from = "Von: Formular-Robot <sendmail@alpix.eu>";
 mail($empfaenger, $betreff, $text, $from);

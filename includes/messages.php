@@ -9,16 +9,15 @@ include 'dbconnect.php';
 include_once(dirname(__FILE__) . "/../Escaper/Escaper.php");  // Escaper class um xss zu verhindern
 $escaper = new Zend\Escaper\Escaper('utf-8');
 
-function get_name($id)
-{
+function get_name($id) {
     global $link;
     $name = "unbekannt"; //Fallback falls der Name nicht über die ID gefunden wird. (Warum auch immer)
     $sql = "SELECT `name` FROM `user` WHERE `ID` = $id";
     $db_erg = mysqli_query($link, $sql);
     if (!$db_erg) {
-        die ('Ungültige Abfrage: ' . mysqli_error());
+        die ('Ungültige Abfrage: ' . mysqli_error($link));
     }
-    if ($zeile = mysqli_fetch_array($db_erg, MYSQL_NUM)) {
+    if ($zeile = mysqli_fetch_array($db_erg, MYSQLI_NUM)) {
         $name = $zeile['0']; // Nimmt ersten Eintrag. Wenn mehrere Accounts mit der ID verbunden sind, wird also nur der Erste genommen.
     }
     return $name;
@@ -34,9 +33,9 @@ if ($max_messages) {
 
 $db_erg = mysqli_query($link, $sql);
 if (!$db_erg) {
-    die ('Ungültige Abfrage: ' . mysqli_error());
+    die ('Ungültige Abfrage: ' . mysqli_error($link));
 }
-while ($zeile = mysqli_fetch_array($db_erg, MYSQL_ASSOC)) {
+while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
     // Nachfolgend werden Zeilenumbrüche eingefügt um die Länge der einzelnen Zeilen im Chat zu regulieren
     $tempmessage = explode(" ", $escaper->escapeHtml($zeile['txt'])); // Nachricht wird in einzelne Worte zersetzt. Trennungsmerkmal eines Wortes ist ein Leerzeichen.
     $runde = 0;                                          // Bereits erfolgte Durchgänge = Verarbeitete Worte
