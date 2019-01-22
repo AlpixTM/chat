@@ -21,6 +21,7 @@ function isLoggedIn() {
         mysqli_query($link, $sql);
         if ($url == '/' or $url == "/index.php") {
             header("Location: /main.php");
+            exit(0);
         }
     }
     else {

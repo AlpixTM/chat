@@ -38,12 +38,12 @@ if (!$db_erg) {
 while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
     // Nachfolgend werden Zeilenumbrüche eingefügt um die Länge der einzelnen Zeilen im Chat zu regulieren
     $tempmessage = explode(" ", $escaper->escapeHtml($zeile['txt'])); // Nachricht wird in einzelne Worte zersetzt. Trennungsmerkmal eines Wortes ist ein Leerzeichen.
-    $runde = 0;                                          // Bereits erfolgte Durchgänge = Verarbeitete Worte
-    $i = 0;                                              // Wortanzahl die bereits abgearbeitet wurde und der aktuellen Zeile zugeordnet wurde
-    $ii = 0;                                              /* Anzahl von Teilen eines zerlegten Wortes -
-                                                           Zerlegung von langen Wörtern in Teilworte auf Basis der durchschnittlich 10 Zeichen pro deutschem Wort
-                                                           -> So werden lange Zeichenketten getrennt
-                                                        */
+    $runde = 0;                                                                // Bereits erfolgte Durchgänge = Verarbeitete Worte
+    $i = 0;                                                                     // Wortanzahl die bereits abgearbeitet wurde und der aktuellen Zeile zugeordnet wurde
+    $ii = 0;                                                                    /* Anzahl von Teilen eines zerlegten Wortes -
+                                                                                   Zerlegung von langen Wörtern in Teilworte auf Basis der durchschnittlich 10 Zeichen pro deutschem Wort
+                                                                                   -> So werden lange Zeichenketten getrennt
+                                                                                 */
     foreach ($tempmessage as $value) {
         $runde++;                                      // +1 Durchgang
         $i++;                                           // +1 Wort in der aktuellen Zeile. Wird nach Zeilenumbruch auf 0 gesetzt
@@ -82,7 +82,7 @@ while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
     $userid = $zeile['userid'];
     $temptime = explode(" ", $zeile['time']);
     $temptime2 = explode(":", $temptime[1]);
-    $time = $temptime2[0] . ":" . $temptime2[1];
+    $time = $temptime[0] . " " . $temptime2[0] . ":" . $temptime2[1];
     $name = $escaper->escapeHtml(get_name($userid));
     // Nachfolgend wird die Nachricht ausgegeben
     echo "   <tr>

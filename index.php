@@ -17,6 +17,7 @@ if ($logout == true) {                                                      // I
     mysqli_query($link, $sql);
     session_destroy();                                                      // Session wird zerstört
     header("Location: /");
+    exit(0);
 }
 
 isLoggedIn();
